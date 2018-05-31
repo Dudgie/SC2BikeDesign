@@ -50,9 +50,14 @@ function alpha = findAlpha(n)
     y = polyval(a, x);
     
     %Plot it
-    plot(theta(:,1),alpha(:,1));
+    data1 = plot(theta(:,1),alpha(:,1));
     hold on
-    plot(theta(:,2),alpha(:,2));
-    plot(theta(:,3),alpha(:,3));
-    plot(x,y);
+    data2 = plot(theta(:,2),alpha(:,2));
+    data3 = plot(theta(:,3),alpha(:,3));
+    fit = plot(x,y,'Linewidth',3);
+    xlabel('theta')
+    ylabel('alpha')
+    title('Variation of the pedal angle over a pedal stroke')
+    legend([data1,data2,data3,fit],{'Data set 1','Data set 2','Data set 3','Polynomial Fit'})
+    
 end

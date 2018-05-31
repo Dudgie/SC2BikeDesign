@@ -3,7 +3,7 @@ clear all
 close all
 
 modelparameters; %initilaises parameters of the model
-m=10;
+m=1000;
 theta = linspace(0, 1, m); %Crank Angle
 theta = theta*pi;
 alpha = -(pi/16)*cos(theta)+pi/16; %Angle of pedal- currently set to be 0.
@@ -14,7 +14,7 @@ omega= C*pi/30;
 f1 = figure;
 f2 = figure;
 f3 = figure;
-N = 100;
+N = 5;
 
 totalForce = zeros(1,N);
 
@@ -49,24 +49,10 @@ Fln = zeros(n,1);
 for i = 1:n
     [Mc(i),Flt(i)] = mom(Cl, Fo, Fh, F(i,1),alpha(i),F(i,2));
 end
-
-figure(f2);
-plot(abs(calfExtension),abs(Mc),'Color',[1 k/N 0]);
-hold on
-xlabel('Extension Rate')
-ylabel('Calf Force')
-title('Graph of the supplied force from the calf vs the extension rate of the calf')
 x = 0:0.1:10;
 y = 100-10*x;
-plot(x,y);
-
-figure(f3);
-plot(abs(V(1,:)),abs(Flt),'Color',[1 k/N 0]);
-hold on
-xlabel('ankle tangential velocity');
-ylabel('tangential force on the ankle');
-
-totalForce(k+1) = sum(abs(Mc));
+plotGraphs(f2,calfExtension,Mc,k,N,x,y,f3,V,Flt)
+totalForce(k+1) = sum(Mc);
 end
 [f,i] = min(totalForce);
 Cl = 0.12*(i-1)/N
