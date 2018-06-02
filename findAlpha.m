@@ -1,4 +1,4 @@
-function y = findAlpha(n,plot)
+function y = findAlpha(n,plotIt,f4)
 
     alpha = [0.5378355267	0.6037493334	0.5485494025;
     0.4704042629	0.5084893241	0.491809176;
@@ -49,8 +49,9 @@ function y = findAlpha(n,plot)
     x = linspace(0,pi,n);
     y = polyval(a, x);
     
-    if plot
+    if plotIt
         %Plot it
+        figure(f4);
         data1 = plot(theta(:,1),alpha(:,1));
         hold on
         data2 = plot(theta(:,2),alpha(:,2));

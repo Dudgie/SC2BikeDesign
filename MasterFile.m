@@ -8,22 +8,24 @@ theta = linspace(0, 1, m); %Crank Angle
 theta = theta*pi;
 %alpha = -(pi/16)*cos(theta)+pi/16; %Angle of pedal- currently set to be 0.
 %alpha = zeros(size(theta));
-plot = 0; % 0: don't plot graphs, 1: plot graphs
-alpha = findAlpha(m,plot);
+plotIt = 1; % 0: don't plot graphs, 1: plot graphs
+
 P=200; %Power Output
 C=80; %cadence, rpm
 omega= C*pi/30;
 
 
-if plot % make figure windows for graphs
+if plotIt % make figure windows for graphs
     f1 = figure;
     f2 = figure;
     f3 = figure;
+    f4 = figure;
 else % These don't matter just matlab doesn't like null values so I set them to zero
     f1 = 0;
     f2 = 0;
     f3 = 0;
 end
+alpha = findAlpha(m,plotIt,f4);
 N = 100;
 
 % Cleat position optimising parameter, minimise this for the best cleat
@@ -33,10 +35,10 @@ totalForce = zeros(1,N);
 % for a range of cleat positions
 for k = 0:1:N
     n = m;
-    Cl = Fs*k/N; % Cleat positions
+    Cl = Fs*k/N/2; % Cleat positions
 
 %Find the angular velocities
-[calfExtension,V,e] = getExtension(Cl, theta, alpha, omega,UL,LL,Fs,Fh,Cr,pivot,Fo,f1,plot);
+[calfExtension,V,e] = getExtension(Cl, theta, alpha, omega,UL,LL,Fs,Fh,Cr,pivot,Fo,f1,plotIt);
 if e>0
     return
 end
@@ -68,7 +70,7 @@ end
 x = linspace(0,10,m-1);
 y = 100-10*x;
 
-if plot
+if plotIt
     plotGraphs(f2,calfExtension,Mc,k,N,x,y,f3,V,Flt)
 end
 
