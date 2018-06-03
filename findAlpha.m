@@ -1,7 +1,14 @@
 
 function y = findAlpha(n,plotIt,f4)
-
-
+    
+    % Get file to read
+    [dfile,dpath] = uigetfile('*.dat','Select Data File To Load');
+    dataFile = fullfile(dpath, dfile);
+    M = csvread(dataFile);
+    theta = M(1,:);
+    alpha = M(2,:);
+    
+%{
     alpha = [0.5378355267	0.6037493334	0.5485494025;
     0.4704042629	0.5084893241	0.491809176;
     0.429178508	0.443102555	0.477831055;
@@ -43,9 +50,10 @@ function y = findAlpha(n,plotIt,f4)
     %Put into one big array of data
     thetal = [theta(:,1);theta(:,2);theta(:,3)];
     alphal = [alpha(:,1);alpha(:,2);alpha(:,3)];
+    %}
     %Sort the data
-    [B,I] = sort(thetal);
-    C = alphal(I);
+    [B,I] = sort(theta);
+    C = alpha(I);
     %Fit a polynomial
     a = polyfit(B,C,4);
     x = linspace(0,pi,n);
@@ -54,15 +62,13 @@ function y = findAlpha(n,plotIt,f4)
     if plotIt
         %Plot it
         figure(f4);
-        data1 = plot(theta(:,1),alpha(:,1));
+        data = scatter(theta,alpha);
         hold on
-        data2 = plot(theta(:,2),alpha(:,2));
-        data3 = plot(theta(:,3),alpha(:,3));
         fit = plot(x,y,'Linewidth',3);
         xlabel('theta')
         ylabel('alpha')
         title('Variation of the pedal angle over a pedal stroke')
-        legend([data1,data2,data3,fit],{'Data set 1','Data set 2','Data set 3','Polynomial Fit'})
+        legend([data,fit],{'Data set','Polynomial Fit'})
     end
     
 end
