@@ -1,4 +1,4 @@
-function alpha = findAlpha(n)
+function y = findAlpha(n)
 
     alpha = [0.5378355267	0.6037493334	0.5485494025;
     0.4704042629	0.5084893241	0.491809176;

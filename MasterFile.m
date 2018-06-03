@@ -6,7 +6,8 @@ modelparameters; %initilaises parameters of the model
 m=1000;
 theta = linspace(0, 1, m); %Crank Angle
 theta = theta*pi;
-alpha = -(pi/16)*cos(theta)+pi/16; %Angle of pedal- currently set to be 0.
+alpha = findAlpha(m);
+%alpha = -(pi/16)*cos(theta)+pi/16; %Angle of pedal- currently set to be 0.
 %alpha = zeros(size(theta));
 P=200; %Power Output
 C=80; %cadence, rpm
