@@ -3,7 +3,7 @@
 %Theta and alpha need to be the same length
 %When plot = 1 a graph is plotted of the geometry
 %Cleat position is the distance from the ankle to the cleat
-function [psi,ankle,e] = getAngles(CleatPosition, theta, alpha,UpperLeg,LowerLeg,FootSize,FootHeight,CrankLength,PivotPosition,FootOffset,f1)
+function [psi,ankle,e] = getAngles(CleatPosition, theta, alpha,UpperLeg,LowerLeg,FootSize,FootHeight,CrankLength,PivotPosition,FootOffset,f1,plotIt)
     %Do the distances add up?
     %Find an array of vectors indicating the position of the
     %pedal positions around a pedal cycle
@@ -39,7 +39,8 @@ function [psi,ankle,e] = getAngles(CleatPosition, theta, alpha,UpperLeg,LowerLeg
         %vertical direction.
         psi = atan((ankle(1,:)-knee(1,:))./(ankle(2,:)-knee(2,:)));
         
-        
-        plotMechanism(alpha,PivotPosition, ankle, heel, knee, pedal, CleatPosition,FootSize,f1);
+        if plotIt
+            plotMechanism(alpha,PivotPosition, ankle, heel, knee, pedal, CleatPosition,FootSize,f1);
+        end
     end
 end

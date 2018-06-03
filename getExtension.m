@@ -1,7 +1,7 @@
 %Function to generate the angular velocites of the various parts of
 %the leg from the angular velocity of the crank
-function [psi,calfExtension,V,e] = getExtension(CleatPosition, theta, alpha, omega,UpperLeg,LowerLeg,FootSize,FootHeight,CrankLength,PivotPosition,FootOffset,f1)
-    [psi,ankle,e] = getAngles(CleatPosition, theta, alpha,UpperLeg,LowerLeg,FootSize,FootHeight,CrankLength,PivotPosition,FootOffset,f1);
+function [calfExtension,V,e] = getExtension(CleatPosition, theta, alpha, omega,UpperLeg,LowerLeg,FootSize,FootHeight,CrankLength,PivotPosition,FootOffset,f1,plotIt)
+    [psi,ankle,e] = getAngles(CleatPosition, theta, alpha,UpperLeg,LowerLeg,FootSize,FootHeight,CrankLength,PivotPosition,FootOffset,f1,plotIt);
     if e>0
         psi =0;
         calfExtension = 0;
