@@ -40,7 +40,7 @@ while hasFrame(v)
             axis equal
         end
     else
-        v.CurrentTime = v.CurrentTime + 0.375;
+        v.CurrentTime = v.CurrentTime + 0.3;
         vidFrame = readFrame(v);
         image(vidFrame, 'Parent', currAxes);
         axis equal

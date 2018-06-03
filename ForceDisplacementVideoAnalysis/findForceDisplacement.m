@@ -1,4 +1,7 @@
 function findForceDisplacement(m)
+    Scale = 4;
+    m = m*Scale;
+    
     % Get file to read
     [dfile,dpath] = uigetfile('*.dat','Select Data File To Load');
     dataFile = fullfile(dpath, dfile);
