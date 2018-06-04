@@ -45,8 +45,8 @@ average = (max(r)+min(r))/2;
 dE = norminv([0.025 0.975],average,sigma);
 disp(dE);
 
-p = polyfit(xReal,r,2);
-Cf = polyval(p,xReal);
+p = polyfit(xMeasured,r,2);
+Cf = polyval(p,xMeasured);
 xMeasuredCor = xMeasured - Cf;
 rCor = xMeasuredCor - xReal;
 sigmaCor = (sum(rCor.^2)/N)^0.5;
