@@ -9,6 +9,8 @@ v = VideoReader(videoFile);
 
 currAxes = axes;
 i = 1;
+p = [0.0002 -0.0531 -0.8536];
+
 vidFrame = readFrame(v);
 image(vidFrame, 'Parent', currAxes);
 axis equal
@@ -25,6 +27,10 @@ while hasFrame(v)
             [x,y] = ginput(1);
             z(i) = (y-start)*scale;
             t(i) = i/v.FrameRate;
+            
+            Cf = polyval(p,z);
+            z = z - Cf;
+            
             i = i +1;
             vidFrame = readFrame(v);
             image(vidFrame, 'Parent', currAxes);
