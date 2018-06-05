@@ -3,11 +3,11 @@ clear all
 close all
 
 % Number of locations
-N = 9;
+N = 11;
 
 % Get file to read
 [ifile,ipath] = uigetfile;
-imageFile = fullfile(ipath, ifile); 
+imageFile = fullfile(ipath, ifile);
 A = imread(imageFile);
 
 % Put on the axes
@@ -60,14 +60,14 @@ hold on
 plot([0,0],[xReal(1),xReal(end)]);
 xlabel('Error in the measurement')
 ylabel('location')
-title('Graph of the error in the distance measurement correcting using a parabola')
+title('Graph of the error in the distance measurement using a parabola')
 
 xRealTan = xReal-150;
 xM = (xB(2)+xB(1))/2;
 xShift = x'-xM;
 
 
-w = 600;
+w = 400;
 thetaMax = atan(D/(2*w));
 thetah = thetaMax*xShift/(xB(2)-xM);
 h = w*tan(thetah);
@@ -84,13 +84,13 @@ hold on
 plot([0,0],[xRealTan(1),xRealTan(end)]);
 xlabel('Error in the measurement')
 ylabel('location')
-title('Graph of the error in the distance measurement correcting for curvature')
+title('Graph of the error in the distance measurement using tans')
 
 
-pTan = polyfit(h,rTan,2);
-CfTan = polyval(pTan,h);
-hCor = h - CfTan;
-rCorTan = hCor - xRealTan;
+pTan = polyfit(xShift,rTan,2);
+CfTan = polyval(pTan,xShift);
+xShiftCor = xShift - CfTan;
+rCorTan = xShiftCor - xRealTan;
 sigmaCorTan = (sum(rCorTan.^2)/N)^0.5;
 averageCorTan = (max(rCorTan)+min(rCorTan))/2;
 dECorTan = norminv([0.025 0.975],averageCorTan,sigmaCorTan);
@@ -98,10 +98,10 @@ disp(dECorTan);
 
 
 f4 = figure;
-scatter(rCorTan,xRealTan);
+scatter(rCorT,xRealTan);
 hold on
 plot([0,0],[xRealTan(1),xRealTan(end)]);
 xlabel('Error in the measurement')
 ylabel('location')
-title('Graph of the error in the distance measurement using both methods')
+title('Graph of the error in the distance measurement using tans')
 

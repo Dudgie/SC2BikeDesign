@@ -25,7 +25,7 @@ else % These don't matter just matlab doesn't like null values so I set them to 
     f2 = 0;
     f3 = 0;
 end
-alpha = findAlpha(m,plotIt,f4);
+alpha = zeros(size(theta));%findAlpha(m,plotIt,f4);
 N = 100;
 
 % Cleat position optimising parameter, minimise this for the best cleat
@@ -35,7 +35,7 @@ totalForce = zeros(1,N);
 % for a range of cleat positions
 for k = 0:1:N
     n = m;
-    Cl = Fs*k/N/2; % Cleat positions
+    Cl = Fs*k/N; % Cleat positions
 
 %Find the angular velocities
 [calfExtension,V,e] = getExtension(Cl, theta, alpha, omega,UL,LL,Fs,Fh,Cr,pivot,Fo,f1,plotIt);
@@ -67,14 +67,23 @@ for i = 1:n
     [Mc(i),Flt(i)] = mom(Cl, Fo, Fh, F(i,1),alpha(i),F(i,2));
 end
 % Calf force velocity characteristic placeholder
-x = linspace(0,10,m-1);
-y = 100-10*x;
+x = linspace(0,5,m-1);
+y = findForce(x,plotIt);
 
 if plotIt
     plotGraphs(f2,calfExtension,Mc,k,N,x,y,f3,V,Flt)
 end
 
-totalForce(k+1) = sum(y'-Mc);
+maxMoment = findForce(calfExtension,0);
+
+totalForce(k+1) = sum(maxMoment'-Mc);
 end
-[f,i] = max(totalForce);
-Cl = Fs*(i-1)/N
+p = 0:N;
+CleatPosition = p*Fs/N;
+optimum = figure;
+plot(CleatPosition,totalForce);
+xlabel('Cleat Position - Distance from heel / m')
+ylabel('Optimising criteria to be maximised');
+title('Graph showing the optimum position of the cleat')
+[f,l] = max(abs(totalForce));
+Cl = Fs*(l-1)/N
