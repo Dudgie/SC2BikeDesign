@@ -1,5 +1,5 @@
 
-function y = findAlpha(n,plotIt,f4)
+function [y,f4] = findAlpha(n,plotIt,f4)
     
     % Get file to read
     [dfile,dpath] = uigetfile('*.dat','Select Data File To Load');
@@ -62,13 +62,13 @@ function y = findAlpha(n,plotIt,f4)
     if plotIt
         %Plot it
         figure(f4);
-        data = scatter(theta,alpha);
+        %data = scatter(theta,alpha);
         hold on
         fit = plot(x,y,'Linewidth',3);
-        xlabel('theta')
-        ylabel('alpha')
+        xlabel('Crank Angle / rad')
+        ylabel('Pedal Angle / rad')
         title('Variation of the pedal angle over a pedal stroke')
-        legend([data,fit],{'Data set','Polynomial Fit'})
+        %legend([data,fit],{'Data set','Polynomial Fit'})
     end
     
 end

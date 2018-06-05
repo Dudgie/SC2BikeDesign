@@ -25,8 +25,8 @@ else % These don't matter just matlab doesn't like null values so I set them to 
     f2 = 0;
     f3 = 0;
 end
-alpha = zeros(size(theta));%findAlpha(m,plotIt,f4);
-N = 100;
+alpha = findAlpha(m,plotIt,f4);
+N = 3;
 
 % Cleat position optimising parameter, minimise this for the best cleat
 % position
@@ -35,7 +35,7 @@ totalForce = zeros(1,N);
 % for a range of cleat positions
 for k = 0:1:N
     n = m;
-    Cl = Fs*k/N; % Cleat positions
+    Cl = Fs*k/N*2/3; % Cleat positions
 
 %Find the angular velocities
 [calfExtension,V,e] = getExtension(Cl, theta, alpha, omega,UL,LL,Fs,Fh,Cr,pivot,Fo,f1,plotIt);
