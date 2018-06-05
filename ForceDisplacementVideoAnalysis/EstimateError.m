@@ -3,11 +3,11 @@ clear all
 close all
 
 % Number of locations
-N = 11;
+N = 9;
 
 % Get file to read
 [ifile,ipath] = uigetfile;
-imageFile = fullfile(ipath, ifile);
+imageFile = fullfile(ipath, ifile); 
 A = imread(imageFile);
 
 % Put on the axes
