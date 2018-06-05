@@ -31,6 +31,7 @@ xMeasured = (x'-xB(1))*Scale;
 
 r = xMeasured-xReal;
 
+f1 = figure;
 scatter(r,xReal);
 hold on
 plot([0,0],[xReal(1),xReal(end)]);
@@ -38,13 +39,14 @@ xlabel('Error in the measurement')
 ylabel('location')
 title('Graph of the error in the distance measurement')
 
+
 sigma = (sum(r.^2)/N)^0.5;
 average = (max(r)+min(r))/2;
 dE = norminv([0.025 0.975],average,sigma);
 disp(dE);
 
-p = polyfit(xReal,r,2);
-Cf = polyval(p,xReal);
+p = polyfit(xMeasured,r,2);
+Cf = polyval(p,xMeasured);
 xMeasuredCor = xMeasured - Cf;
 rCor = xMeasuredCor - xReal;
 sigmaCor = (sum(rCor.^2)/N)^0.5;
@@ -52,15 +54,54 @@ averageCor = (max(rCor)+min(rCor))/2;
 dECor = norminv([0.025 0.975],averageCor,sigmaCor);
 disp(dECor);
 
+f2 = figure;
+scatter(rCor,xReal);
+hold on
+plot([0,0],[xReal(1),xReal(end)]);
+xlabel('Error in the measurement')
+ylabel('location')
+title('Graph of the error in the distance measurement using a parabola')
+
+xRealTan = xReal-150;
+xM = (xB(2)+xB(1))/2;
+xShift = x'-xM;
+
 
 w = 400;
 thetaMax = atan(D/(2*w));
-thetah = thetaMax*
+thetah = thetaMax*xShift/(xB(2)-xM);
+h = w*tan(thetah);
+
+rTan = h-xRealTan;
+sigmaTan = (sum(rTan.^2)/N)^0.5;
+averageTan = (max(rTan)+min(rTan))/2;
+dETan = norminv([0.025 0.975],averageTan,sigmaTan);
+disp(dETan);
+
+f3 = figure;
+scatter(rTan,xRealTan);
+hold on
+plot([0,0],[xRealTan(1),xRealTan(end)]);
+xlabel('Error in the measurement')
+ylabel('location')
+title('Graph of the error in the distance measurement using tans')
 
 
+pTan = polyfit(xShift,rTan,2);
+CfTan = polyval(pTan,xShift);
+xShiftCor = xShift - CfTan;
+rCorTan = xShiftCor - xRealTan;
+sigmaCorTan = (sum(rCorTan.^2)/N)^0.5;
+averageCorTan = (max(rCorTan)+min(rCorTan))/2;
+dECorTan = norminv([0.025 0.975],averageCorTan,sigmaCorTan);
+disp(dECorTan);
 
 
-
-
-
+f4 = figure;
+scatter(rCorT,xRealTan);
+hold on
+plot([0,0],[xRealTan(1),xRealTan(end)]);
+xlabel('Error in the measurement')
+ylabel('location')
+title('Graph of the error in the distance measurement using tans')
 
