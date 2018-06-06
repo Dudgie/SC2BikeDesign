@@ -55,7 +55,7 @@ Fn(:,1)=sin(stheta)+0.5; %set force at theta value
 % friction on the pedal. Crap assumption but I couldn't think of a better
 % way to get the angle of the pedal force without input it as another
 % experiment
-Fn(:,2)=salpha; %set force angle at theta value
+Fn(:,2)=0;%salpha; %set force angle at theta value
 PF = powernormalise(P, Fn(:,1), Fn(:,2), theta, n , Cr, omega);
 F(:,1) = PF*Fn(:,1);
 F(:,2) = Fn(:,2);
@@ -71,13 +71,15 @@ x = linspace(0,5,m-1);
 y = findForce(x,plotIt);
 
 if plotIt
-    plotGraphs(f2,calfExtension,Mc,k,N,x,y,f3,V,Flt)
+    [stroke(k+1),Maximum] = plotGraphs(f2,calfExtension,Mc,k,N,x,y,f3,V,Flt);
 end
 
 maxMoment = findForce(calfExtension,0);
 
 totalForce(k+1) = sum(maxMoment'-Mc);
 end
+
+
 p = 0:N;
 CleatPosition = p*Fs/N;
 optimum = figure;
