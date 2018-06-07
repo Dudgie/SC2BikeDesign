@@ -39,8 +39,10 @@ function [psi,ankle,e] = getAngles(CleatPosition, theta, alpha,UpperLeg,LowerLeg
         %vertical direction.
         psi = atan((ankle(1,:)-knee(1,:))./(ankle(2,:)-knee(2,:)));
         
+        ULCon = knee + FootOffset*[-cos(phi);-sin(phi)];
+        
         if plotIt
-            plotMechanism(alpha,PivotPosition, ankle, heel, knee, pedal, CleatPosition,FootSize,f1);
+            plotMechanism(alpha,PivotPosition, ankle, heel, knee, pedal, CleatPosition,FootSize,f1,ULCon);
         end
     end
 end
